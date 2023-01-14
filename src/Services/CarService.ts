@@ -31,7 +31,7 @@ export default class CarService {
 
     if (!car) {
       return { status: 404, message: 'Car not found' };
-    }
+    } 
     return { status: 200, message: car };
   };
 }
