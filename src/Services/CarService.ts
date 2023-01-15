@@ -31,4 +31,18 @@ export default class CarService {
     const car = await carODM.getById(id);
     return car;
   };
+
+  public updateCar = async (id: string, carChanged: ICar) => {
+    const carODM = new CarODM();
+    const carUpdated = await carODM.update(id, carChanged);
+    
+    if (!carUpdated) {
+      return null;
+    }
+
+    return {
+      id,
+      ...carChanged,
+    };
+  };
 }
