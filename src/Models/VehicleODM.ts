@@ -1,4 +1,5 @@
 import { model, Model, models, Schema } from 'mongoose';
+import ICar from '../Interfaces/ICar';
 
 abstract class VehicleODM<T> {
   protected _model: Model<T>;
@@ -22,6 +23,11 @@ abstract class VehicleODM<T> {
 
   public async getById(id: string): Promise<T | null> {
     const car = await this._model.findById(id);
+    return car;
+  }
+
+  public async update(id: string, options: ICar): Promise<T | null> {
+    const car = await this._model.findByIdAndUpdate(id, options);
     return car;
   }
 }
