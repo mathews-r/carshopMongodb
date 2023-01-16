@@ -25,7 +25,7 @@ describe('Testes no MotoService', function () {
       }
     });
   });
-  describe('Testes com POST na rota /cars', function () {
+  describe('Testes com POST na rota /motorcycles', function () {
     it('Deve criar uma nova moto com sucesso', async function () {
       sinon.stub(Model, 'create').resolves(mockMotoOutput[0]);
 
@@ -41,6 +41,25 @@ describe('Testes no MotoService', function () {
       const result = await service.createMoto(motoMockWithouStatus);
 
       expect(result).to.be.deep.equal(mockMotoOutput[0]);
+    });
+  });
+  describe('Testes com PUT na rota /motorcycles', function () {
+    it('Deve alterar uma moto com sucesso', async function () {
+      sinon.stub(Model, 'findByIdAndUpdate').resolves(mockMotoOutput[0]);
+
+      const service = new MotorCycle();
+      const result = await service.updateMoto('1', mockMotoOutput[1]);
+
+      expect(result).to.be.deep.equal(mockMotoOutput[1]);
+    });
+    it('Deve falhar ao tentar alterar uma moto que não existe', async function () {
+      sinon.stub(Model, 'findByIdAndUpdate').resolves(null);
+      try {
+        const service = new MotorCycle();
+        await service.updateMoto('2', mockMotoOutput[1]);
+      } catch (error) {
+        expect((error as Error).message).to.be.equal('Motorcycle not found');
+      }
     });
   });
 

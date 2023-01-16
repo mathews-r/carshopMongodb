@@ -31,4 +31,27 @@ export default class MotorCycle {
     const moto = await motoODM.getById(id);
     return moto;
   };
+
+  public updateMoto = async (id: string, motoChanged: IMotorcycle) => {
+    const motoODM = new MotoODM();
+    const motoUpdated = await motoODM.update(id, motoChanged);
+    
+    if (!motoUpdated) {
+      return null;
+    }
+
+    return {
+      id,
+      ...motoChanged,
+    };
+  };
+
+  public deleteMoto = async (id: string) => {
+    const motoODM = new MotoODM();
+    const moto = await this.getById(id);
+    if (!moto) return { message: 'Motorcycle not found' };
+
+    await motoODM.delete(id);
+    return null;
+  };
 }
