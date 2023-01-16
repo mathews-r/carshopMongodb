@@ -42,6 +42,14 @@ describe('Testes no MotoService', function () {
 
       expect(result).to.be.deep.equal(mockMotoOutput[0]);
     });
+    it('Deve retornar null se não passar nenhum parametro', async function () {
+      sinon.stub(Model, 'create').resolves(undefined);
+
+      const service = new MotorCycle();
+      const result = await service.createMoto(motoMockWithouStatus);
+
+      expect(result).to.be.deep.equal(null);
+    });
   });
   describe('Testes com PUT na rota /motorcycles', function () {
     it('Deve alterar uma moto com sucesso', async function () {

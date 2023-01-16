@@ -42,6 +42,14 @@ describe('Testes no CarService', function () {
 
       expect(result).to.be.deep.equal(mockCarOutput[0]);
     });
+    it('Deve retornar null se não passar nenhum parametro', async function () {
+      sinon.stub(Model, 'create').resolves(undefined);
+
+      const service = new CarService();
+      const result = await service.createCar(carMockWithouStatus);
+
+      expect(result).to.be.deep.equal(null);
+    });
   });
   describe('Testes com PUT na rota /cars', function () {
     it('Deve alterar um carro com sucesso', async function () {
