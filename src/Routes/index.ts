@@ -5,6 +5,6 @@ import motoRouter from './moto.route';
 const routes = express.Router();
 
 routes.use('/cars', carRouter);
-routes.use('/cars', motoRouter);
+routes.use('/motorcycles', motoRouter);
 
 export default routes;
