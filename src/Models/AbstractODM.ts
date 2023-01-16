@@ -1,5 +1,4 @@
 import { model, Model, models, Schema } from 'mongoose';
-import ICar from '../Interfaces/ICar';
 
 abstract class AbstractODM<T> {
   protected _model: Model<T>;
@@ -17,18 +16,23 @@ abstract class AbstractODM<T> {
   }
 
   public async getAll(): Promise<T[]> {
-    const cars = await this._model.find();
-    return cars;
+    const vehicles = await this._model.find();
+    return vehicles;
   }
 
   public async getById(id: string): Promise<T | null> {
-    const car = await this._model.findById(id);
-    return car;
+    const vehicle = await this._model.findById(id);
+    return vehicle;
   }
 
-  public async update(id: string, options: ICar): Promise<T | null> {
-    const car = await this._model.findByIdAndUpdate(id, options);
-    return car;
+  public async update(id: string, options: Partial<T>): Promise<T | null> {
+    const vehicle = await this._model.findByIdAndUpdate(id, options);
+    return vehicle;
+  }
+
+  public async delete(id: string): Promise<T | null> {
+    const vehicle = await this._model.findByIdAndDelete(id);
+    return vehicle;
   }
 }
 
