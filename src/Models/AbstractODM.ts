@@ -1,7 +1,7 @@
 import { model, Model, models, Schema } from 'mongoose';
 import ICar from '../Interfaces/ICar';
 
-abstract class VehicleODM<T> {
+abstract class AbstractODM<T> {
   protected _model: Model<T>;
   protected schema: Schema;
   protected modelName: string;
@@ -32,4 +32,4 @@ abstract class VehicleODM<T> {
   }
 }
 
-export default VehicleODM;
+export default AbstractODM;

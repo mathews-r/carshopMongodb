@@ -1,8 +1,8 @@
 import { Schema } from 'mongoose';
 import ICar from '../Interfaces/ICar';
-import VehicleODM from './VehicleODM';
+import AbstractODM from './AbstractODM';
 
-export default class CarODM extends VehicleODM<ICar> {
+export default class CarODM extends AbstractODM<ICar> {
   constructor() {
     const schema = new Schema<ICar>(
       {
