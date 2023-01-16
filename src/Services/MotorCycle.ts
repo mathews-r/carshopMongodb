@@ -11,11 +11,24 @@ export default class MotorCycle {
   };
 
   public createMoto = async (moto: IMotorcycle) => {
-    const carODM = new MotoODM();
-    const carCreated = await carODM.create({
+    const motoODM = new MotoODM();
+    const motoCreated = await motoODM.create({
       ...moto,
       status: moto.status || false,
     });
-    return this.createMotoDomain(carCreated);
+    return this.createMotoDomain(motoCreated);
+  };
+
+  public getAll = async () => {
+    const motoODM = new MotoODM();
+    const motos = await motoODM.getAll();
+
+    return { status: 200, message: motos };
+  };
+
+  public getById = async (id: string) => {
+    const motoODM = new MotoODM();
+    const moto = await motoODM.getById(id);
+    return moto;
   };
 }
