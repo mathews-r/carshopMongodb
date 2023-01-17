@@ -70,6 +70,27 @@ describe('Testes no MotoService', function () {
       }
     });
   });
+  describe('Testes com DELETE na rota /motorcycles', function () {
+    it('Deve deletar uma moto com sucesso', async function () {
+      sinon.stub(Model, 'findById').resolves(mockMotoOutput[0]);
+      sinon.stub(Model, 'findByIdAndDelete').resolves(null);
+
+      const service = new MotorCycle();
+      const result = await service.deleteMoto('1');
+     
+      expect(result).to.be.deep.equal(null);
+    });
+    it('Deve retornar um erro ao tentar deletar uma moto que não existe', async function () {
+      sinon.stub(Model, 'findById').resolves(null);
+
+      try {
+        const service = new MotorCycle();
+        await service.deleteMoto('1');
+      } catch (error) {
+        expect((error as Error).message).to.be.deep.equal('Motorcycle not found');
+      }
+    });
+  });
 
   afterEach(function () {
     sinon.restore();

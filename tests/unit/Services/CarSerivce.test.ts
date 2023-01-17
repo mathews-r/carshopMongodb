@@ -70,6 +70,27 @@ describe('Testes no CarService', function () {
       }
     });
   });
+  describe('Testes com DELETE na rota /cars', function () {
+    it('Deve deletar um carro com sucesso', async function () {
+      sinon.stub(Model, 'findById').resolves(mockCarOutput[0]);
+      sinon.stub(Model, 'findByIdAndDelete').resolves(null);
+
+      const service = new CarService();
+      const result = await service.deleteCar('1');
+     
+      expect(result).to.be.deep.equal(null);
+    });
+    it('Deve retornar um erro ao tentar deletar um carro que não existe', async function () {
+      sinon.stub(Model, 'findById').resolves(null);
+
+      try {
+        const service = new CarService();
+        await service.deleteCar('1');
+      } catch (error) {
+        expect((error as Error).message).to.be.deep.equal('Car not found');
+      }
+    });
+  });
   afterEach(function () {
     sinon.restore();
   });
